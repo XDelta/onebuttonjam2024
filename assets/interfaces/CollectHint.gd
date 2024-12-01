@@ -11,8 +11,10 @@ func _on_collection_area_body_entered(body: Node2D) -> void:
 	Globals.StoredCount += Globals.HeldCount
 	var current_hp = $"../../../UI/UI_Bars".value;
 	var bonus = 0
-	if(held > 5):
+	if(held >= 5):
 		bonus = 10
+	if(held >= 10):
+		bonus = 20
 	var new_hp = current_hp + (held * 10) + bonus
 	$"../../../UI/UI_Bars".emit_signal("update_health", new_hp)
 	Globals.HeldCount = 0
