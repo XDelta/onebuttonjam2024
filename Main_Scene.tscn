@@ -127,17 +127,56 @@ speed_scale = 10.0
 interpolate = false
 trail_lifetime = 0.68
 
-[node name="StaticBody2D" type="StaticBody2D" parent="World"]
-position = Vector2(456, 136)
+[node name="World Boundaries" type="StaticBody2D" parent="World"]
+
+[node name="Right" type="CollisionShape2D" parent="World/World Boundaries"]
+position = Vector2(1296, 352)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_a16nv")
+one_way_collision_margin = 3.0
+
+[node name="Left" type="CollisionShape2D" parent="World/World Boundaries"]
+position = Vector2(-16, 336)
+shape = SubResource("WorldBoundaryShape2D_a16nv")
+one_way_collision_margin = 3.0
+
+[node name="Top" type="CollisionShape2D" parent="World/World Boundaries"]
+position = Vector2(640, -16)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_a16nv")
+one_way_collision_margin = 3.0
+
+[node name="Top2" type="CollisionShape2D" parent="World/World Boundaries"]
+position = Vector2(640, 736)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_a16nv")
+one_way_collision_margin = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D"]
 shape = SubResource("RectangleShape2D_q5bbc")
+[node name="UI Bounds" type="CollisionPolygon2D" parent="World/World Boundaries"]
+polygon = PackedVector2Array(304, 720, 256, 664, 144, 648, 0, 640, 0, 720)
+
+[node name="CenterDome" type="CollisionPolygon2D" parent="World/World Boundaries"]
+polygon = PackedVector2Array(552, 720, 616, 664, 712, 664, 768, 704, 776, 720)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World/StaticBody2D"]
 
 [node name="Node" type="Node" parent="."]
 
 [node name="Button" type="Button" parent="Node"]
+[node name="ParallaxBackground" type="TextureRect" parent="."]
+z_index = -100
+z_as_relative = false
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_frid8")
 offset_left = 1208.0
 offset_top = 136.0
 offset_right = 1280.0
