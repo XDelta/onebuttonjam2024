@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgc1k38mr818v"]
+
+[ext_resource type="Script" path="res://assets/interfaces/ui_bars.gd" id="1_h6qpu"]
+[ext_resource type="Texture2D" uid="uid://c5v187jiewd8f" path="res://assets/interfaces/UI_Bars.tres" id="2_or2p6"]
+[ext_resource type="Texture2D" uid="uid://cdtx2fa4q2srr" path="res://assets/interfaces/UI_elements.png" id="3_lol31"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkpt0"]
+atlas = ExtResource("3_lol31")
+region = Rect2(0, 80, 256, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fclw2"]
+atlas = ExtResource("3_lol31")
+region = Rect2(0, 40, 256, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_114ja"]
+atlas = ExtResource("3_lol31")
+region = Rect2(0, 40, 256, 40)
+
+[node name="UI_Bars" type="CenterContainer"]
+offset_right = 256.0
+offset_bottom = 40.0
+script = ExtResource("1_h6qpu")
+
+[node name="HungerUnder" type="TextureProgressBar" parent="."]
+layout_mode = 2
+value = 100.0
+texture_under = SubResource("AtlasTexture_bkpt0")
+texture_progress = SubResource("AtlasTexture_fclw2")
+tint_progress = Color(0, 1, 1, 1)
+
+[node name="HungerOver" type="TextureProgressBar" parent="."]
+layout_mode = 2
+value = 100.0
+texture_over = ExtResource("2_or2p6")
+texture_progress = SubResource("AtlasTexture_114ja")
+tint_progress = Color(0, 1, 0, 1)
