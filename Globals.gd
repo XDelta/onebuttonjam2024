@@ -8,3 +8,4 @@ var HeldCount = 0
 var StoredCount = 0
 var maxSpawnedItemCount = 5
 var currentSpawnedItemCount = 0
+var isDebug = 0
