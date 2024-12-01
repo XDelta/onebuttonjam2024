@@ -38,10 +38,12 @@ func _physics_process(delta: float) -> void:
 	
 	# Apply velocity and move
 	if move_timer > 0:
-		$PlayerParticles.emitting = true
+		if(OS.get_name() != "Web"):
+			$PlayerParticles.emitting = true
 		move_timer -= delta
 		if move_timer <= 0:
-			$PlayerParticles.emitting = false
+			if(OS.get_name() != "Web"):
+				$PlayerParticles.emitting = false
 			velocity = Vector2.ZERO  # Stop movement when timer expires
 
 	move_and_slide()
