@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="One Button"
+config/name="Collection Vector"
 run/main_scene="res://Main_Scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"

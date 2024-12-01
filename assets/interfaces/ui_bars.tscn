@@ -26,7 +26,7 @@ layout_mode = 2
 value = 100.0
 texture_under = SubResource("AtlasTexture_bkpt0")
 texture_progress = SubResource("AtlasTexture_fclw2")
-tint_progress = Color(0, 1, 1, 1)
+tint_progress = Color(0.496059, 0.628189, 0, 1)
 
 [node name="HungerOver" type="TextureProgressBar" parent="."]
 layout_mode = 2

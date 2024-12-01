@@ -1,12 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0dp7scgr1aq8"]
+[gd_scene load_steps=19 format=3 uid="uid://d0dp7scgr1aq8"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_82fu3"]
 [ext_resource type="Script" path="res://debug.gd" id="2_rj7xq"]
 [ext_resource type="Script" path="res://items/collectables.gd" id="3_5o1ld"]
 [ext_resource type="Script" path="res://player/player.gd" id="4_8ebv8"]
+[ext_resource type="Texture2D" uid="uid://clmmuvc3t8p07" path="res://assets/interfaces/AnimatedArrow_Frame1.png" id="5_vwcn1"]
 [ext_resource type="Texture2D" uid="uid://cdtx2fa4q2srr" path="res://assets/interfaces/UI_elements.png" id="6_0jeci"]
+[ext_resource type="Texture2D" uid="uid://bmc614m23vd8u" path="res://assets/interfaces/AnimatedArrow_Frame2.png" id="6_8fr6x"]
 [ext_resource type="PackedScene" uid="uid://dgc1k38mr818v" path="res://assets/interfaces/ui_bars.tscn" id="6_027qe"]
-[ext_resource type="Script" path="res://button.gd" id="7_pi7rv"]
+[ext_resource type="Texture2D" uid="uid://bo40qbsl3d5pm" path="res://assets/interfaces/AnimatedArrow_Frame3.png" id="7_ctu8f"]
+[ext_resource type="Texture2D" uid="uid://drc6bxqjpg10b" path="res://assets/Background.png" id="8_frid8"]
+[ext_resource type="Texture2D" uid="uid://05r03f1fywya" path="res://assets/interfaces/AnimatedArrow_Frame4.png" id="8_j5qfd"]
+[ext_resource type="Script" path="res://assets/interfaces/CollectHint.gd" id="12_hpnw3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lh0ep"]
 radius = 16.0
@@ -21,8 +26,41 @@ collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q5bbc"]
-size = Vector2(42, 266)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a16nv"]
+normal = Vector2(1, 0)
+distance = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pky8h"]
+size = Vector2(96, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eiu86"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_vwcn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8fr6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ctu8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_j5qfd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ctu8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8fr6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vwcn1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grynf"]
 atlas = ExtResource("6_0jeci")
@@ -30,10 +68,6 @@ region = Rect2(0, 120, 256, 40)
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_82fu3")
-
-[node name="BackGround" type="Panel" parent="."]
-offset_right = 1280.0
-offset_bottom = 720.0
 
 [node name="Debug Info Text" type="Label" parent="."]
 anchors_preset = 1
@@ -51,6 +85,18 @@ true
 horizontal_alignment = 2
 script = ExtResource("2_rj7xq")
 
+[node name="Game_Over" type="Panel" parent="."]
+z_index = 100
+offset_left = 528.0
+offset_top = 176.0
+offset_right = 752.0
+offset_bottom = 360.0
+
+[node name="Results" type="Label" parent="Game_Over"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="Center Button" type="Panel" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -65,7 +111,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Title" type="Label" parent="Center Button"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,7 +124,7 @@ offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
-text = "_ VECTOR _"
+text = "_ Collection Vector _"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -152,19 +197,27 @@ rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_a16nv")
 one_way_collision_margin = 3.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D"]
-shape = SubResource("RectangleShape2D_q5bbc")
 [node name="UI Bounds" type="CollisionPolygon2D" parent="World/World Boundaries"]
 polygon = PackedVector2Array(304, 720, 256, 664, 144, 648, 0, 640, 0, 720)
 
 [node name="CenterDome" type="CollisionPolygon2D" parent="World/World Boundaries"]
 polygon = PackedVector2Array(552, 720, 616, 664, 712, 664, 768, 704, 776, 720)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World/StaticBody2D"]
+[node name="CollectionArea" type="Area2D" parent="World"]
+position = Vector2(664, 664)
+collision_layer = 3
+collision_mask = 3
 
-[node name="Node" type="Node" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/CollectionArea"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_pky8h")
 
-[node name="Button" type="Button" parent="Node"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/CollectionArea"]
+position = Vector2(0, -45)
+sprite_frames = SubResource("SpriteFrames_eiu86")
+frame_progress = 0.150199
+script = ExtResource("12_hpnw3")
+
 [node name="ParallaxBackground" type="TextureRect" parent="."]
 z_index = -100
 z_as_relative = false
@@ -177,25 +230,24 @@ offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_frid8")
-offset_left = 1208.0
-offset_top = 136.0
-offset_right = 1280.0
-offset_bottom = 167.0
-text = "Damage
-"
-script = ExtResource("7_pi7rv")
 
-[node name="UI_Bars" parent="Node" instance=ExtResource("6_027qe")]
+[node name="UI" type="Node" parent="."]
+
+[node name="UI_Bars" parent="UI" instance=ExtResource("6_027qe")]
 offset_top = 688.0
 offset_bottom = 728.0
 scale = Vector2(0.75, 0.75)
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Node"]
-offset_top = 648.0
-offset_right = 256.0
-offset_bottom = 688.0
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI"]
+visible = false
+offset_left = 16.0
+offset_top = 672.0
+offset_right = 272.0
+offset_bottom = 712.0
+scale = Vector2(0.6, 0.6)
 value = 100.0
 texture_progress = SubResource("AtlasTexture_grynf")
 
+[connection signal="gameover" from="." to="." method="_on_gameover"]
 [connection signal="confirmed" from="ConfirmQuit" to="." method="_on_ConfirmQuitDialog_confirmed"]
-[connection signal="pressed" from="Node/Button" to="Node/Button" method="_on_pressed"]
+[connection signal="body_entered" from="World/CollectionArea" to="World/CollectionArea/AnimatedSprite2D" method="_on_collection_area_body_entered"]

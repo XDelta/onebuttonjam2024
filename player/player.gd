@@ -4,7 +4,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const MAX_CHARGE = 0.6
 const MAX_SPEED = 800.0
-const VECTOR_LENGTH = 100.0
+const VECTOR_LENGTH = 50.0
 const VECTOR_ROTATION_SPEED = 4.0
 const MOVE_DURATION = 0.5
 
@@ -67,6 +67,5 @@ func _draw() -> void:
 		 
 	draw_polygon(vertices_translated,[Color.GREEN])
 	var line_end = Vector2(VECTOR_LENGTH, 0).rotated(line_angle)
-	draw_line(Vector2.ZERO, line_end, Color.AQUA, 2.0,true)
-	$TEMP.text = "Angle: %.2f" % fmod(rad_to_deg(line_angle),360)
+	draw_line(Vector2.ZERO, line_end, Color.AQUA, 1.0,true)
 	var charge = lerp(20, 40, time_held / MAX_CHARGE)
