@@ -16,7 +16,7 @@ func _on_timer_interval():
 	if (Globals.currentSpawnedItemCount < Globals.maxSpawnedItemCount):
 		var window = get_viewport().size #DisplayServer.screen_get_size()
 		var newitem = item.instantiate()
-		newitem.position.x = randf_range(10, window.x - 10)
-		newitem.position.y = randf_range(10, window.y - 10)
+		newitem.position.x = randf_range(20, window.x - 20)
+		newitem.position.y = randf_range(70, window.y - 70)
 		add_child(newitem)
 		Globals.currentSpawnedItemCount += 1
