@@ -21,15 +21,15 @@ func _on_reset() -> void:
 	$HungerUnder.value = value
 
 func _on_update_health(_value: float) -> void:
-	print("hp updated")
-	print(_value)
 	value = _value
 	var tween = create_tween()
 	tween.tween_property($HungerOver, "value", value, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property($HungerUnder, "value", value, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _process(delta: float) -> void:
-	pass
+	if(value < 1):
+		emit_signal("reset")
+		$"../..".emit_signal("gameover")
 
 func _on_uitimer_interval():
 	if (Globals.Started == false):
